@@ -13,10 +13,14 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
 
   final TextEditingController messageText = TextEditingController();
+  bool autofocus = false;
 
   @override
   void initState() {
     super.initState();
+    setState(() {
+      autofocus = true;
+    });
   }
 
   Future<void> sendMessage() async {
@@ -90,7 +94,7 @@ class _HomeState extends State<Home> {
                 ),
                 ListTile(
                   title: TextField(
-                    autofocus: true,
+                    autofocus: autofocus,
                     minLines: 1,
                     maxLines: 10,
                     maxLength: 2000,

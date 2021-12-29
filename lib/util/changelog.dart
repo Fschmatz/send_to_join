@@ -1,12 +1,12 @@
 class Changelog{
 
-  static String appVersion = "1.0.0";
+  static String appVersion = "1.0.1";
   static String appName = "Send To Join Fschmatz";
 
   static String changelogs = '''
-1.0.0
+1.0.1
 - Technically Usable
-- Added GitHub
+- Added Link GitHub
 
 0.3.0
 - Api
