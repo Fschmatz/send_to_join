@@ -12,13 +12,10 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
   TextEditingController messageText = TextEditingController();
-  late FocusNode inputNode;
 
   @override
   void initState() {
     super.initState();
-    inputNode = FocusNode();
-    inputNode.requestFocus();
   }
 
   Future<void> sendMessage() async {
@@ -47,87 +44,94 @@ class _HomeState extends State<Home> {
     }
   }
 
-  @override
-  void dispose() {
-    inputNode.dispose();
-    super.dispose();
+  void loseFocus() {
+    FocusScopeNode currentFocus = FocusScope.of(context);
+    if (!currentFocus.hasPrimaryFocus) {
+      currentFocus.unfocus();
+    }
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        appBar: AppBar(
-          title: const Text('Send To Join Fschmatz'),
-          actions: [
-            IconButton(
-                icon: const Icon(
-                  Icons.info_outline_rounded,
-                ),
-                onPressed: () {
-                  showDialog(
-                    context: context,
-                    builder: (BuildContext context) {
-                      return const InfoDialog();
-                    },
-                  );
-                }),
-          ],
-        ),
-        body: ListView(
-          shrinkWrap: true,
-          children: [
-            ListTile(
-              title: Text("Message".toUpperCase(),
-                  style: TextStyle(
-                      fontSize: 13,
-                      fontWeight: FontWeight.w700,
-                      color: Theme.of(context).colorScheme.primary)),
-            ),
-            ListTile(
-              title: TextField(
-                autofocus: true,
-                minLines: 1,
-                maxLines: 10,
-                maxLength: 2000,
-                focusNode: inputNode,
-                maxLengthEnforcement: MaxLengthEnforcement.enforced,
-                textInputAction: TextInputAction.go,
-                controller: messageText,
-                decoration: InputDecoration(
-                  counterText: "",
-                  focusColor: Theme.of(context).colorScheme.primary,
-                ),
-                style: const TextStyle(
-                  fontSize: 16,
-                ),
-                onEditingComplete: () => {sendMessage()},
-              ),
-            ),
-            const SizedBox(
-              height: 20,
-            ),
-            Center(
-              child: SizedBox(
-                width: 120,
-                height: 45,
-                child: ElevatedButton.icon(
-                  label: const Text('Send'),
-                  icon: const Icon(Icons.send_rounded),
-                  style: ElevatedButton.styleFrom(
-                    elevation: 0,
-                    primary: Theme.of(context).colorScheme.secondary,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(12.0),
-                    ),
+    return GestureDetector(
+      onTap: () {
+        loseFocus();
+      },
+      child: Scaffold(
+          appBar: AppBar(
+            title: const Text('Send To Join Fschmatz'),
+            actions: [
+              IconButton(
+                  icon: const Icon(
+                    Icons.info_outline_rounded,
                   ),
                   onPressed: () {
-                    sendMessage();
-                  },
-                  //child:
+                    showDialog(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return const InfoDialog();
+                      },
+                    );
+                  }),
+            ],
+          ),
+          body: Center(
+            child: ListView(
+              shrinkWrap: true,
+              children: [
+                ListTile(
+                  title: Text("Message".toUpperCase(),
+                      style: TextStyle(
+                          fontSize: 13,
+                          fontWeight: FontWeight.w700,
+                          color: Theme.of(context).colorScheme.primary)),
                 ),
-              ),
-            )
-          ],
-        ));
+                ListTile(
+                  title: TextField(
+                    autofocus: true,
+                    minLines: 1,
+                    maxLines: 10,
+                    maxLength: 2000,
+                    maxLengthEnforcement: MaxLengthEnforcement.enforced,
+                    textInputAction: TextInputAction.go,
+                    controller: messageText,
+                    decoration: InputDecoration(
+                      counterText: "",
+                      focusColor: Theme.of(context).colorScheme.primary,
+                    ),
+                    style: const TextStyle(
+                      fontSize: 16,
+                    ),
+                    onEditingComplete: () => {sendMessage()},
+                  ),
+                ),
+                const SizedBox(
+                  height: 20,
+                ),
+                Center(
+                  child: SizedBox(
+                    width: 120,
+                    height: 45,
+                    child: ElevatedButton.icon(
+                      label: const Text('Send'),
+                      icon: const Icon(Icons.send_rounded),
+                      style: ElevatedButton.styleFrom(
+                        elevation: 0,
+                        primary: Theme.of(context).colorScheme.secondary,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(12.0),
+                        ),
+                      ),
+                      onPressed: () {
+                        sendMessage();
+                      },
+                      //child:
+                    ),
+                  ),
+                )
+              ],
+            ),
+          )),
+    );
   }
 }
