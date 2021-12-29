@@ -51,82 +51,77 @@ class _HomeState extends State<Home> {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () {
-        loseFocus();
-      },
-      child: Scaffold(
-          appBar: AppBar(
-            title: const Text('Send To Join Fschmatz'),
-            actions: [
-              IconButton(
-                  icon: const Icon(
-                    Icons.info_outline_rounded,
+    return Scaffold(
+        appBar: AppBar(
+          title: const Text('Send To Join Fschmatz'),
+          actions: [
+            IconButton(
+                icon: const Icon(
+                  Icons.info_outline_rounded,
+                ),
+                onPressed: () {
+                  showDialog(
+                    context: context,
+                    builder: (BuildContext context) {
+                      return const InfoDialog();
+                    },
+                  );
+                }),
+          ],
+        ),
+        body: ListView(
+          children: [
+            ListTile(
+              title: Text("Message".toUpperCase(),
+                  style: TextStyle(
+                      fontSize: 13,
+                      fontWeight: FontWeight.w700,
+                      color: Theme.of(context).colorScheme.primary)),
+            ),
+            ListTile(
+              title: TextField(
+                autofocus: true,
+                minLines: 1,
+                maxLines: 10,
+                maxLength: 2000,
+                maxLengthEnforcement: MaxLengthEnforcement.enforced,
+                textInputAction: TextInputAction.go,
+                controller: messageText,
+                decoration: InputDecoration(
+                  counterText: "",
+                  focusColor: Theme.of(context).colorScheme.primary,
+                ),
+                style: const TextStyle(
+                  fontSize: 16,
+                ),
+                onEditingComplete: () => {sendMessage()},
+              ),
+            ),
+            const SizedBox(
+              height: 20,
+            ),
+            Center(
+              child: SizedBox(
+                width: 120,
+                height: 45,
+                child: ElevatedButton.icon(
+                  label: const Text('Send'),
+                  icon: const Icon(Icons.send_rounded),
+                  style: ElevatedButton.styleFrom(
+                    elevation: 0,
+                    primary: Theme.of(context).colorScheme.secondary,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(12.0),
+                    ),
                   ),
                   onPressed: () {
-                    showDialog(
-                      context: context,
-                      builder: (BuildContext context) {
-                        return const InfoDialog();
-                      },
-                    );
-                  }),
-            ],
-          ),
-          body: ListView(
-            children: [
-              ListTile(
-                title: Text("Message".toUpperCase(),
-                    style: TextStyle(
-                        fontSize: 13,
-                        fontWeight: FontWeight.w700,
-                        color: Theme.of(context).colorScheme.primary)),
-              ),
-              ListTile(
-                title: TextField(
-                  autofocus: true,
-                  minLines: 1,
-                  maxLines: 5,
-                  maxLength: 2000,
-                  maxLengthEnforcement: MaxLengthEnforcement.enforced,
-                  textInputAction: TextInputAction.go,
-                  controller: messageText,
-                  decoration: InputDecoration(
-                    counterText: "",
-                    focusColor: Theme.of(context).colorScheme.primary,
-                  ),
-                  style: const TextStyle(
-                    fontSize: 16,
-                  ),
-                  onEditingComplete: () => {sendMessage()},
+                    sendMessage();
+                  },
+                  //child:
                 ),
               ),
-              const SizedBox(
-                height: 20,
-              ),
-              Center(
-                child: SizedBox(
-                  width: 120,
-                  height: 45,
-                  child: ElevatedButton.icon(
-                    label: const Text('Send'),
-                    icon: const Icon(Icons.send_rounded),
-                    style: ElevatedButton.styleFrom(
-                      elevation: 0,
-                      primary: Theme.of(context).colorScheme.secondary,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(16.0),
-                      ),
-                    ),
-                    onPressed: () {
-                      sendMessage();
-                    },
-                    //child:
-                  ),
-                ),
-              )
-            ],
-          )),
-    );
+            )
+          ],
+        ));
   }
 }
