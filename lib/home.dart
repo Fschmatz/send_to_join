@@ -11,7 +11,8 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-  TextEditingController messageText = TextEditingController();
+
+  final TextEditingController messageText = TextEditingController();
 
   @override
   void initState() {
@@ -53,6 +54,7 @@ class _HomeState extends State<Home> {
 
   @override
   Widget build(BuildContext context) {
+
     return GestureDetector(
       onTap: () {
         loseFocus();
