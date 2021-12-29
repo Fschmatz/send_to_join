@@ -6,6 +6,7 @@ class Changelog{
   static String changelogs = '''
 1.0.0
 - Technically Usable
+- Added GitHub
 
 0.3.0
 - Api

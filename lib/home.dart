@@ -4,7 +4,6 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:send_to_join/api_key.dart';
 import 'package:send_to_join/util/info_dialog.dart';
 import 'package:http/http.dart' as http;
-import 'dart:convert' show jsonDecode, json;
 
 class Home extends StatefulWidget {
   @override
@@ -13,10 +12,16 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
   TextEditingController messageText = TextEditingController();
+  late FocusNode inputNode;
+
+  @override
+  void initState() {
+    super.initState();
+    inputNode = FocusNode();
+    inputNode.requestFocus();
+  }
 
   Future<void> sendMessage() async {
-    loseFocus();
-
     if (messageText.text.isNotEmpty) {
       String urlToSend =
           "https://joinjoaomgcd.appspot.com/_ah/api/messaging/v1/sendPush?apikey=" +
@@ -42,11 +47,10 @@ class _HomeState extends State<Home> {
     }
   }
 
-  void loseFocus() {
-    FocusScopeNode currentFocus = FocusScope.of(context);
-    if (!currentFocus.hasPrimaryFocus) {
-      currentFocus.unfocus();
-    }
+  @override
+  void dispose() {
+    inputNode.dispose();
+    super.dispose();
   }
 
   @override
@@ -70,6 +74,7 @@ class _HomeState extends State<Home> {
           ],
         ),
         body: ListView(
+          shrinkWrap: true,
           children: [
             ListTile(
               title: Text("Message".toUpperCase(),
@@ -84,6 +89,7 @@ class _HomeState extends State<Home> {
                 minLines: 1,
                 maxLines: 10,
                 maxLength: 2000,
+                focusNode: inputNode,
                 maxLengthEnforcement: MaxLengthEnforcement.enforced,
                 textInputAction: TextInputAction.go,
                 controller: messageText,

@@ -20,7 +20,7 @@ class InfoDialog extends StatefulWidget {
 
 class _InfoDialogState extends State<InfoDialog> {
   _launchGithub() {
-    const url = '';
+    const url = 'https://github.com/Fschmatz/send_to_join';
     launch(url);
   }
 
