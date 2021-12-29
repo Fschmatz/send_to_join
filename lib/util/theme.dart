@@ -78,11 +78,11 @@ ThemeData dark = ThemeData(
     primaryColor: const Color(0xFF1C1C1D),
     scaffoldBackgroundColor: const Color(0xFF1C1C1D),
     canvasColor: const Color(0xFF1C1C1D),
-    colorScheme: const ColorScheme.dark(
-        background: Color(0xFF1C1C1D),
-        primary:  Color(0xFF66BF72),
-        secondary: Color(0xFF6fb378),
-        secondaryVariant: Color(0xFF66BF72)
+    colorScheme: ColorScheme.dark(
+        background: const Color(0xFF1C1C1D),
+        primary:  Colors.amberAccent.shade100,
+        secondary:  const Color(0xFFe8c74a),
+        secondaryVariant: Colors.amberAccent.shade100
     ),
     appBarTheme: const AppBarTheme(
         color: Color(0xFF1C1C1D),
@@ -100,11 +100,11 @@ ThemeData dark = ThemeData(
     ),
     inputDecorationTheme: InputDecorationTheme(
         fillColor: const Color(0xFF353537),
-        focusColor: const Color(0xFF66BF72),
+        focusColor: Colors.amberAccent.shade100,
         contentPadding: const EdgeInsets.symmetric(vertical: 15.0, horizontal: 10.0),
         focusedBorder: OutlineInputBorder(
-          borderSide: const BorderSide(
-            color: Color(0xFF66BF72),
+          borderSide: BorderSide(
+            color: Colors.amberAccent.shade100,
           ),
           borderRadius: BorderRadius.circular(12.0),
         ),
@@ -118,19 +118,19 @@ ThemeData dark = ThemeData(
               color: Colors.grey.shade700,
             ),
             borderRadius: BorderRadius.circular(12.0))),
-    bottomNavigationBarTheme: const BottomNavigationBarThemeData(
-      selectedIconTheme: IconThemeData(color: Color(0xFF66BF72)),
-      selectedLabelStyle: TextStyle(color: Color(0xFF66BF72)),
+    bottomNavigationBarTheme: BottomNavigationBarThemeData(
+      selectedIconTheme: IconThemeData(color: Colors.amberAccent.shade100,),
+      selectedLabelStyle: TextStyle(color: Colors.amberAccent.shade100,),
       showSelectedLabels: true,
       showUnselectedLabels: false,
-      backgroundColor: Color(0xFF1C1C1D),
+      backgroundColor: const Color(0xFF1C1C1D),
     ),
-    floatingActionButtonTheme: const FloatingActionButtonThemeData(
-      backgroundColor: Color(0xFF66BF72),
+    floatingActionButtonTheme: FloatingActionButtonThemeData(
+      backgroundColor: Colors.amberAccent.shade100,
     ),
     navigationBarTheme: NavigationBarThemeData(
         backgroundColor: const Color(0xFF1C1C1D),
-        indicatorColor: const Color(0xFF66BF72),
+        indicatorColor: Colors.amberAccent.shade100,
         iconTheme: MaterialStateProperty.all(
             const IconThemeData(color: Color(0xFFCACACA),)
         ),

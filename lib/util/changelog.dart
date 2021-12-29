@@ -1,9 +1,12 @@
 class Changelog{
 
-  static String appVersion = "0.3.0";
+  static String appVersion = "1.0.0";
   static String appName = "Send To Join Fschmatz";
 
   static String changelogs = '''
+1.0.0
+- Technically Usable
+
 0.3.0
 - Api
 - URI

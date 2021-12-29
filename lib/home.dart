@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:send_to_join/api_key.dart';
 import 'package:send_to_join/util/info_dialog.dart';
 import 'package:http/http.dart' as http;
+import 'dart:convert' show jsonDecode, json;
 
 class Home extends StatefulWidget {
   @override
@@ -10,20 +12,34 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-
   TextEditingController messageText = TextEditingController();
 
-  void sendMessage() async{
-    String urlToSend = "https://joinjoaomgcd.appspot.com/_ah/api/messaging/v1/sendPush?apikey="+ApiKey.key+"&text="+messageText.text+"&deviceId="+ApiKey.deviceID;
+  Future<void> sendMessage() async {
+    loseFocus();
 
-    final response = await http.get(Uri.parse(urlToSend));
-    print(response.body);
-    //var response = await http.post(
+    if (messageText.text.isNotEmpty) {
+      String urlToSend =
+          "https://joinjoaomgcd.appspot.com/_ah/api/messaging/v1/sendPush?apikey=" +
+              ApiKey.key +
+              "&text=" +
+              messageText.text +
+              "&deviceId=" +
+              ApiKey.deviceID;
 
-       // Uri.https(Uri.parse(urlToSend)),
-        //headers: {"Content-type": "application/json"},
-        //body: json.encode(supermodel .toJson()));
-        // print(response.body);
+      final response = await http.get(Uri.parse(urlToSend));
+
+      if (response.body.contains('true')) {
+        Fluttertoast.showToast(
+          msg: "Message Sent",
+        );
+      }
+
+      messageText.text = '';
+    } else {
+      Fluttertoast.showToast(
+        msg: "Message is Empty",
+      );
+    }
   }
 
   void loseFocus() {
@@ -35,14 +51,13 @@ class _HomeState extends State<Home> {
 
   @override
   Widget build(BuildContext context) {
-
     return GestureDetector(
       onTap: () {
         loseFocus();
       },
       child: Scaffold(
           appBar: AppBar(
-            title: const Text('Send To Join'),
+            title: const Text('Send To Join Fschmatz'),
             actions: [
               IconButton(
                   icon: const Icon(
@@ -56,24 +71,11 @@ class _HomeState extends State<Home> {
                       },
                     );
                   }),
-/*
-              IconButton(
-                  icon: const Icon(
-                    Icons.departure_board,
-                  ),
-                  onPressed: () {
-                    print(Uri.parse(urlToSend));
-
-                   print(urlToSend);
-                  }),*/
             ],
           ),
           body: ListView(
             children: [
               ListTile(
-               /* leading: const SizedBox(
-                  height: 0.1,
-                ),*/
                 title: Text("Message".toUpperCase(),
                     style: TextStyle(
                         fontSize: 13,
@@ -81,13 +83,13 @@ class _HomeState extends State<Home> {
                         color: Theme.of(context).colorScheme.primary)),
               ),
               ListTile(
-                //leading: const Icon(Icons.notes_outlined),
                 title: TextField(
                   autofocus: true,
                   minLines: 1,
                   maxLines: 5,
                   maxLength: 2000,
                   maxLengthEnforcement: MaxLengthEnforcement.enforced,
+                  textInputAction: TextInputAction.go,
                   controller: messageText,
                   decoration: InputDecoration(
                     counterText: "",
@@ -96,17 +98,19 @@ class _HomeState extends State<Home> {
                   style: const TextStyle(
                     fontSize: 16,
                   ),
-                  onSubmitted: (value) => {
-
-                  },
+                  onEditingComplete: () => {sendMessage()},
                 ),
               ),
-              const SizedBox(height: 20,),
+              const SizedBox(
+                height: 20,
+              ),
               Center(
                 child: SizedBox(
                   width: 120,
-                  height: 40,
-                  child: ElevatedButton(
+                  height: 45,
+                  child: ElevatedButton.icon(
+                    label: const Text('Send'),
+                    icon: const Icon(Icons.send_rounded),
                     style: ElevatedButton.styleFrom(
                       elevation: 0,
                       primary: Theme.of(context).colorScheme.secondary,
@@ -114,17 +118,15 @@ class _HomeState extends State<Home> {
                         borderRadius: BorderRadius.circular(16.0),
                       ),
                     ),
-                    onPressed: () { },
-                    child: const Text('Send'),
+                    onPressed: () {
+                      sendMessage();
+                    },
+                    //child:
                   ),
                 ),
               )
             ],
-          )
-
-
-
-      ),
+          )),
     );
   }
 }
