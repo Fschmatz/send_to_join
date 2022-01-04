@@ -13,14 +13,10 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
 
   final TextEditingController messageText = TextEditingController();
-  bool autofocus = false;
 
   @override
   void initState() {
     super.initState();
-    setState(() {
-      autofocus = true;
-    });
   }
 
   Future<void> sendMessage() async {
@@ -40,7 +36,6 @@ class _HomeState extends State<Home> {
           msg: "Message Sent",
         );
       }
-
       messageText.text = '';
     } else {
       Fluttertoast.showToast(
@@ -85,6 +80,9 @@ class _HomeState extends State<Home> {
             child: ListView(
               shrinkWrap: true,
               children: [
+                const SizedBox(
+                  height: 120,
+                ),
                 ListTile(
                   title: Text("Message".toUpperCase(),
                       style: TextStyle(
@@ -94,13 +92,14 @@ class _HomeState extends State<Home> {
                 ),
                 ListTile(
                   title: TextField(
-                    autofocus: autofocus,
+                    autofocus: true,
                     minLines: 1,
                     maxLines: 10,
                     maxLength: 2000,
                     maxLengthEnforcement: MaxLengthEnforcement.enforced,
                     textInputAction: TextInputAction.go,
                     controller: messageText,
+                    textCapitalization: TextCapitalization.sentences,
                     decoration: InputDecoration(
                       counterText: "",
                       focusColor: Theme.of(context).colorScheme.primary,
@@ -108,11 +107,13 @@ class _HomeState extends State<Home> {
                     style: const TextStyle(
                       fontSize: 16,
                     ),
-                    onEditingComplete: () => {sendMessage()},
+                    onEditingComplete: () => {
+                      sendMessage()
+                    },
                   ),
                 ),
                 const SizedBox(
-                  height: 20,
+                  height: 30,
                 ),
                 Center(
                   child: SizedBox(
