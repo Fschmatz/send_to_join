@@ -31,7 +31,10 @@ class _AppState extends State<App> {
           systemStatusBarContrastEnforced: false,
           systemNavigationBarIconBrightness: iconBrightness,
         ),
-        child: SafeArea(child: Home())
+        child: SafeArea(child:
+        Home(
+          autoFocusState: true,
+        ))
     );
   }
 }

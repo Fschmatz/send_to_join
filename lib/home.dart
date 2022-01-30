@@ -6,6 +6,10 @@ import 'package:send_to_join/util/info_dialog.dart';
 import 'package:http/http.dart' as http;
 
 class Home extends StatefulWidget {
+  bool autoFocusState;
+
+  Home({Key? key,required this.autoFocusState}) : super(key: key);
+
   @override
   _HomeState createState() => _HomeState();
 }
@@ -30,13 +34,12 @@ class _HomeState extends State<Home> {
               ApiKey.deviceID;
 
       final response = await http.get(Uri.parse(urlToSend));
-
+      messageText.text = '';
       if (response.body.contains('true')) {
         Fluttertoast.showToast(
           msg: "Message Sent",
         );
       }
-      messageText.text = '';
     } else {
       Fluttertoast.showToast(
         msg: "Message is Empty",
@@ -81,7 +84,7 @@ class _HomeState extends State<Home> {
               shrinkWrap: true,
               children: [
                 const SizedBox(
-                  height: 120,
+                  height: 80,
                 ),
                 ListTile(
                   title: Text("Message".toUpperCase(),
@@ -92,7 +95,7 @@ class _HomeState extends State<Home> {
                 ),
                 ListTile(
                   title: TextField(
-                    autofocus: true,
+                    autofocus: widget.autoFocusState,
                     minLines: 1,
                     maxLines: 10,
                     maxLength: 2000,
