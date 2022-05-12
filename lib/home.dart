@@ -2,39 +2,61 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:send_to_join/api_key.dart';
-import 'package:send_to_join/util/info_dialog.dart';
 import 'package:http/http.dart' as http;
+import 'package:send_to_join/db/send_history_controller.dart';
+import 'package:send_to_join/db/send_history_dao.dart';
+import 'package:send_to_join/util/settings_page.dart';
+import 'package:send_to_join/widgets/history_tile.dart';
 
 class Home extends StatefulWidget {
-  bool autoFocusState;
-
-  Home({Key? key,required this.autoFocusState}) : super(key: key);
+  const Home({Key? key}) : super(key: key);
 
   @override
   _HomeState createState() => _HomeState();
 }
 
 class _HomeState extends State<Home> {
-
+  List<Map<String, dynamic>> history = [];
   final TextEditingController messageText = TextEditingController();
+  bool loadingHistory = true;
 
   @override
   void initState() {
+    _getHistory();
     super.initState();
   }
 
+  Future<void> _getHistory() async {
+    final db = SendHistoryDao.instance;
+    var resp = await db.queryAllRowsDesc();
+
+    setState(() {
+      history = resp;
+      loadingHistory = false;
+    });
+  }
+
+  Future<void> _saveWordToHistory(String text) async {
+    saveSend(text);
+  }
+
   Future<void> sendMessage() async {
-    if (messageText.text.isNotEmpty) {
+    String textToSend = messageText.text;
+    _saveWordToHistory(textToSend);
+    messageText.text = '';
+
+    if (textToSend.isNotEmpty) {
       String urlToSend =
           "https://joinjoaomgcd.appspot.com/_ah/api/messaging/v1/sendPush?apikey=" +
               ApiKey.key +
               "&text=" +
-              messageText.text +
+              textToSend +
               "&deviceId=" +
               ApiKey.deviceID;
 
       final response = await http.get(Uri.parse(urlToSend));
-      messageText.text = '';
+      _getHistory();
+
       if (response.body.contains('true')) {
         Fluttertoast.showToast(
           msg: "Message Sent",
@@ -56,91 +78,67 @@ class _HomeState extends State<Home> {
 
   @override
   Widget build(BuildContext context) {
-
     return GestureDetector(
       onTap: () {
         loseFocus();
       },
       child: Scaffold(
           appBar: AppBar(
-            title: const Text('Send To Join Fschmatz'),
+            title: const Text('Send To Join'),
             actions: [
               IconButton(
                   icon: const Icon(
-                    Icons.info_outline_rounded,
+                    Icons.settings_outlined,
                   ),
                   onPressed: () {
-                    showDialog(
-                      context: context,
-                      builder: (BuildContext context) {
-                        return const InfoDialog();
-                      },
-                    );
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (BuildContext context) =>
+                              const SettingsPage(),
+                        ));
                   }),
             ],
           ),
-          body: Center(
-            child: ListView(
-              shrinkWrap: true,
-              children: [
-                const SizedBox(
-                  height: 80,
+          body: Column(
+            children: [
+              Expanded(
+                child: ListView.builder(
+                  shrinkWrap: true,
+                  itemCount: history.length,
+                  itemBuilder: (context, index) {
+                    return history[index]['text'].toString().isNotEmpty
+                        ? HistoryTile(
+                            key: UniqueKey(),
+                            text: history[index]['text'],
+                            date: history[index]['date'],
+                          )
+                        : const SizedBox.shrink();
+                  },
                 ),
-                ListTile(
-                  title: Text("Message".toUpperCase(),
-                      style: TextStyle(
-                          fontSize: 13,
-                          fontWeight: FontWeight.w700,
-                          color: Theme.of(context).colorScheme.primary)),
-                ),
-                ListTile(
-                  title: TextField(
-                    autofocus: widget.autoFocusState,
-                    minLines: 1,
-                    maxLines: 10,
-                    maxLength: 2000,
-                    maxLengthEnforcement: MaxLengthEnforcement.enforced,
-                    textInputAction: TextInputAction.go,
-                    controller: messageText,
-                    textCapitalization: TextCapitalization.sentences,
-                    decoration: InputDecoration(
+              ),
+              ListTile(
+                contentPadding: const EdgeInsets.fromLTRB(16, 5, 16, 5),
+                title: TextField(
+                  minLines: 1,
+                  maxLines: 10,
+                  maxLength: 2000,
+                  maxLengthEnforcement: MaxLengthEnforcement.enforced,
+                  textInputAction: TextInputAction.go,
+                  controller: messageText,
+                  textCapitalization: TextCapitalization.sentences,
+                  decoration: InputDecoration(
                       counterText: "",
                       focusColor: Theme.of(context).colorScheme.primary,
-                    ),
-                    style: const TextStyle(
-                      fontSize: 16,
-                    ),
-                    onEditingComplete: () => {
-                      sendMessage()
-                    },
-                  ),
+                      suffixIcon: IconButton(
+                          onPressed: () => {sendMessage(), loseFocus()},
+                          icon: const Icon(
+                            Icons.send_rounded,
+                          ))),
+                  onEditingComplete: () => {sendMessage(), loseFocus()},
                 ),
-                const SizedBox(
-                  height: 30,
-                ),
-                Center(
-                  child: SizedBox(
-                    width: 120,
-                    height: 45,
-                    child: ElevatedButton.icon(
-                      label: const Text('Send'),
-                      icon: const Icon(Icons.send_rounded),
-                      style: ElevatedButton.styleFrom(
-                        elevation: 0,
-                        primary: Theme.of(context).colorScheme.secondary,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(12.0),
-                        ),
-                      ),
-                      onPressed: () {
-                        sendMessage();
-                      },
-                      //child:
-                    ),
-                  ),
-                )
-              ],
-            ),
+              ),
+            ],
           )),
     );
   }

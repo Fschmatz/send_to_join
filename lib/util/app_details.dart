@@ -1,9 +1,15 @@
-class Changelog{
+class AppDetails{
 
-  static String appVersion = "1.0.3";
+  static String appVersion = "2.0.0";
   static String appName = "Send To Join Fschmatz";
+  static String repositoryLink = "https://github.com/Fschmatz/send_to_join";
 
   static String changelogs = '''
+2.0.0
+- New UI
+- Themes
+_ Bug Fixes  
+
 1.0.3
 - Technically Usable
 - Added Link GitHub
