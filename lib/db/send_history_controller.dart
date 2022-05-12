@@ -8,3 +8,8 @@ void saveSend(String text) async {
   };
   await db.insert(row);
 }
+
+void deleteSend(int id) async {
+  final db = SendHistoryDao.instance;
+  await db.delete(id);
+}

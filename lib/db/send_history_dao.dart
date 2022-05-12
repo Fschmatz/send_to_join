@@ -68,5 +68,9 @@ class SendHistoryDao {
     Database db = await instance.database;
     return await db.rawQuery('SELECT * FROM $table ORDER BY id DESC');
   }
+  Future<int> delete(int id) async {
+    Database db = await instance.database;
+    return await db.delete(table, where: '$columnId = ?', whereArgs: [id]);
+  }
 
 }

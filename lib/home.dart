@@ -22,11 +22,16 @@ class _HomeState extends State<Home> {
 
   @override
   void initState() {
-    _getHistory();
+    _getHistory(false);
     super.initState();
   }
 
-  Future<void> _getHistory() async {
+  Future<void> _getHistory([bool refresh = true]) async {
+    if (refresh) {
+      setState(() {
+        loadingHistory = true;
+      });
+    }
     final db = SendHistoryDao.instance;
     var resp = await db.queryAllRowsDesc();
 
@@ -103,29 +108,35 @@ class _HomeState extends State<Home> {
           body: Column(
             children: [
               Expanded(
-                child: ListView.builder(
-                  reverse: true,
-                  shrinkWrap: true,
-                  itemCount: history.length,
-                  itemBuilder: (context, index) {
-                    return history[index]['text'].toString().isNotEmpty
-                        ? HistoryTile(
-                            key: UniqueKey(),
-                            text: history[index]['text'],
-                            date: history[index]['date'],
-                          )
-                        : const SizedBox.shrink();
-                  },
+                child: AnimatedSwitcher(
+                  duration: const Duration(milliseconds: 500),
+                  child: loadingHistory
+                      ? const Center(child: SizedBox.shrink())
+                      : ListView.builder(
+                          reverse: true,
+                          itemCount: history.length,
+                          itemBuilder: (context, index) {
+                            return history[index]['text'].toString().isNotEmpty
+                                ? HistoryTile(
+                                    key: UniqueKey(),
+                                    refreshList: _getHistory,
+                                    id: history[index]['id'],
+                                    text: history[index]['text'],
+                                    date: history[index]['date'],
+                                  )
+                                : const SizedBox.shrink();
+                          },
+                        ),
                 ),
               ),
-              ListTile(
-                contentPadding: const EdgeInsets.fromLTRB(16, 5, 16, 10),
-                title: TextField(
+              Padding(
+                padding: const EdgeInsets.fromLTRB(16, 10, 16, 15),
+                child: TextField(
                   minLines: 1,
                   maxLines: 10,
                   maxLength: 2000,
                   maxLengthEnforcement: MaxLengthEnforcement.enforced,
-                  textInputAction: TextInputAction.go,
+                  //textInputAction: TextInputAction.go,
                   controller: messageText,
                   textCapitalization: TextCapitalization.sentences,
                   decoration: InputDecoration(
@@ -137,7 +148,7 @@ class _HomeState extends State<Home> {
                             Icons.send_rounded,
                             color: Theme.of(context).colorScheme.primary,
                           ))),
-                  onEditingComplete: () => {sendMessage(), loseFocus()},
+                  //onEditingComplete: () => {sendMessage(), loseFocus()},
                 ),
               ),
             ],

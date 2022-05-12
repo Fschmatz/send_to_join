@@ -2,20 +2,26 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:jiffy/jiffy.dart';
 import 'package:http/http.dart' as http;
+import 'package:linkwell/linkwell.dart';
+import 'package:send_to_join/db/send_history_controller.dart';
 import '../api_key.dart';
 
 class HistoryTile extends StatefulWidget {
+
+  Function() refreshList;
+  int? id;
   String? text;
   String? date;
 
   @override
   _HistoryTileState createState() => _HistoryTileState();
 
-  HistoryTile({Key? key, required this.text, required this.date})
+  HistoryTile({Key? key,  this.text,  this.date, this.id, required this.refreshList})
       : super(key: key);
 }
 
 class _HistoryTileState extends State<HistoryTile> {
+
   Future<void> sendMessage() async {
     if (widget.text!.isNotEmpty) {
       String urlToSend =
@@ -40,6 +46,11 @@ class _HistoryTileState extends State<HistoryTile> {
     }
   }
 
+  /*Future<void> deleteAndRefresh() async{
+    deleteSend(widget.id!);
+    widget.refreshList();
+  }*/
+
   @override
   Widget build(BuildContext context) {
     Color detailsColor =
@@ -47,12 +58,28 @@ class _HistoryTileState extends State<HistoryTile> {
 
     return ListTile(
         contentPadding: const EdgeInsets.fromLTRB(16, 5, 0, 5),
-        title: Text(
-          widget.text!,
-        ),
-        subtitle: Text(
-          Jiffy(widget.date!).yMMMMEEEEd,
-          style: TextStyle(fontSize: 12, color: detailsColor),
+        //onLongPress: () => deleteAndRefresh(),
+        title:  LinkWell(widget.text!,
+            linkStyle: TextStyle(
+              color: Theme.of(context)
+                  .colorScheme
+                  .secondary
+                  .withOpacity(0.9),
+              fontSize: 16,
+              decoration: TextDecoration.underline,
+            ),
+            style: TextStyle(
+                fontSize: 16,
+                color: Theme.of(context)
+                    .textTheme
+                    .headline6!
+                    .color!)),
+        subtitle: Padding(
+          padding: const EdgeInsets.only(top: 10),
+          child: Text(
+            Jiffy(widget.date!).yMMMMEEEEd,
+            style: TextStyle(fontSize: 12, color: detailsColor),
+          ),
         ),
         trailing: IconButton(
             onPressed: () => {sendMessage()},
@@ -62,4 +89,3 @@ class _HistoryTileState extends State<HistoryTile> {
             )));
   }
 }
-//Jiffy(widget.date!).format("dd/MM/yyyy")

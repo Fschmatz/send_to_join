@@ -24,11 +24,11 @@ ThemeData light = ThemeData(
       titleTextStyle: TextStyle(
           fontSize: 22, fontWeight: FontWeight.w400, color: Color(0xFF000000))),
   cardTheme: const CardTheme(
-    color: Color(0xFFF6F6F6),
+    color: Color(0xFFF0F0F0),
   ),
   inputDecorationTheme: InputDecorationTheme(
       filled: true,
-      fillColor: const Color(0xFFF2F2F2),
+      fillColor: const Color(0xFFF0F0F0),
       focusColor: Colors.yellow.shade700,
       contentPadding:
           const EdgeInsets.symmetric(vertical: 15.0, horizontal: 10.0),
@@ -88,7 +88,7 @@ ThemeData dark = ThemeData(
       titleTextStyle: TextStyle(
           fontSize: 22, fontWeight: FontWeight.w400, color: Color(0xFFFFFFFF))),
   cardTheme: const CardTheme(
-    color: Color(0xFF272729),
+    color: Color(0xFF2D2D2F),
     shape: RoundedRectangleBorder(
       borderRadius: BorderRadius.all(Radius.circular(12)),
     ),
@@ -108,7 +108,7 @@ ThemeData dark = ThemeData(
   ),
   inputDecorationTheme: InputDecorationTheme(
       filled: true,
-      fillColor: const Color(0xFF2A2A2C),
+      fillColor: const Color(0xFF2D2D2F),
       focusColor: const Color(0xFFe8c74a),
       contentPadding:
           const EdgeInsets.symmetric(vertical: 15.0, horizontal: 10.0),
