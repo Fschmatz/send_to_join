@@ -104,6 +104,7 @@ class _HomeState extends State<Home> {
             children: [
               Expanded(
                 child: ListView.builder(
+                  reverse: true,
                   shrinkWrap: true,
                   itemCount: history.length,
                   itemBuilder: (context, index) {
@@ -118,7 +119,7 @@ class _HomeState extends State<Home> {
                 ),
               ),
               ListTile(
-                contentPadding: const EdgeInsets.fromLTRB(16, 5, 16, 5),
+                contentPadding: const EdgeInsets.fromLTRB(16, 5, 16, 10),
                 title: TextField(
                   minLines: 1,
                   maxLines: 10,
@@ -132,8 +133,9 @@ class _HomeState extends State<Home> {
                       focusColor: Theme.of(context).colorScheme.primary,
                       suffixIcon: IconButton(
                           onPressed: () => {sendMessage(), loseFocus()},
-                          icon: const Icon(
+                          icon: Icon(
                             Icons.send_rounded,
+                            color: Theme.of(context).colorScheme.primary,
                           ))),
                   onEditingComplete: () => {sendMessage(), loseFocus()},
                 ),

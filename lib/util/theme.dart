@@ -28,7 +28,7 @@ ThemeData light = ThemeData(
   ),
   inputDecorationTheme: InputDecorationTheme(
       filled: true,
-      fillColor: const Color(0xFFF5F5F6),
+      fillColor: const Color(0xFFF2F2F2),
       focusColor: Colors.yellow.shade700,
       contentPadding:
           const EdgeInsets.symmetric(vertical: 15.0, horizontal: 10.0),
@@ -36,18 +36,18 @@ ThemeData light = ThemeData(
         borderSide: BorderSide(
           color: Colors.yellow.shade700,
         ),
-        borderRadius: BorderRadius.circular(10.0),
+        borderRadius: BorderRadius.circular(12.0),
       ),
       enabledBorder: OutlineInputBorder(
           borderSide: const BorderSide(
-            color: Colors.grey,
+            color: Color(0xFFF2F2F2),
           ),
-          borderRadius: BorderRadius.circular(10.0)),
+          borderRadius: BorderRadius.circular(12.0)),
       border: OutlineInputBorder(
           borderSide: const BorderSide(
-            color: Colors.grey,
+            color: Color(0xFFF2F2F2),
           ),
-          borderRadius: BorderRadius.circular(10.0))),
+          borderRadius: BorderRadius.circular(12.0))),
   bottomSheetTheme: const BottomSheetThemeData(
     backgroundColor: Color(0xFFFAFAFA),
     shape: RoundedRectangleBorder(
@@ -108,7 +108,7 @@ ThemeData dark = ThemeData(
   ),
   inputDecorationTheme: InputDecorationTheme(
       filled: true,
-      fillColor: const Color(0xFF272729),
+      fillColor: const Color(0xFF2A2A2C),
       focusColor: const Color(0xFFe8c74a),
       contentPadding:
           const EdgeInsets.symmetric(vertical: 15.0, horizontal: 10.0),
@@ -116,18 +116,18 @@ ThemeData dark = ThemeData(
         borderSide: const BorderSide(
           color: Color(0xFFe8c74a),
         ),
-        borderRadius: BorderRadius.circular(10.0),
+        borderRadius: BorderRadius.circular(12.0),
       ),
       enabledBorder: OutlineInputBorder(
-          borderSide: BorderSide(
-            color: Colors.grey.shade800,
+          borderSide: const BorderSide(
+            color: Color(0xFF2A2A2C),
           ),
-          borderRadius: BorderRadius.circular(10.0)),
+          borderRadius: BorderRadius.circular(12.0)),
       border: OutlineInputBorder(
-          borderSide: BorderSide(
-            color: Colors.grey.shade800,
+          borderSide: const BorderSide(
+            color: const Color(0xFF2A2A2C),
           ),
-          borderRadius: BorderRadius.circular(10.0))),
+          borderRadius: BorderRadius.circular(12.0))),
   bottomNavigationBarTheme: const BottomNavigationBarThemeData(
     backgroundColor: Color(0xFF202022),
   ),
