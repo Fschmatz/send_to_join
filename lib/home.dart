@@ -109,7 +109,7 @@ class _HomeState extends State<Home> {
             children: [
               Expanded(
                 child: AnimatedSwitcher(
-                  duration: const Duration(milliseconds: 500),
+                  duration: const Duration(milliseconds: 600),
                   child: loadingHistory
                       ? const Center(child: SizedBox.shrink())
                       : ListView.builder(

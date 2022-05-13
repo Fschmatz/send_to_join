@@ -57,14 +57,13 @@ class _HistoryTileState extends State<HistoryTile> {
         Theme.of(context).textTheme.headline6!.color!.withOpacity(0.7);
 
     return ListTile(
-        contentPadding: const EdgeInsets.fromLTRB(16, 5, 0, 5),
+        contentPadding: const EdgeInsets.fromLTRB(16, 8, 0, 8),
         //onLongPress: () => deleteAndRefresh(),
         title:  LinkWell(widget.text!,
             linkStyle: TextStyle(
               color: Theme.of(context)
                   .colorScheme
-                  .secondary
-                  .withOpacity(0.9),
+                  .secondary,
               fontSize: 16,
               decoration: TextDecoration.underline,
             ),
