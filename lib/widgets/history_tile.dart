@@ -56,44 +56,47 @@ class _HistoryTileState extends State<HistoryTile> {
         context: context,
         builder: (BuildContext context) {
           return SafeArea(
-            child: Wrap(
-              children: <Widget>[
-                ListTile(
-                  leading: const Icon(
-                    Icons.keyboard_return_outlined,
+            child: Padding(
+              padding: const EdgeInsets.fromLTRB(0, 10, 0, 10),
+              child: Wrap(
+                children: <Widget>[
+                  ListTile(
+                    leading: const Icon(
+                      Icons.keyboard_return_outlined,
+                    ),
+                    title: const Text(
+                      "Resend",
+                    ),
+                    onTap: () {
+                      sendMessage();
+                      Navigator.of(context).pop();
+                    },
                   ),
-                  title: const Text(
-                    "Resend",
+                  const Divider(),
+                  ListTile(
+                    leading: const Icon(Icons.share_outlined),
+                    title: const Text(
+                      "Share",
+                    ),
+                    onTap: () {
+                      Navigator.of(context).pop();
+                      Share.share(widget.text!);
+                    },
                   ),
-                  onTap: () {
-                    sendMessage();
-                    Navigator.of(context).pop();
-                  },
-                ),
-                const Divider(),
-                ListTile(
-                  leading: const Icon(Icons.share_outlined),
-                  title: const Text(
-                    "Share",
+                  const Divider(),
+                  ListTile(
+                    leading: const Icon(Icons.delete_outline_outlined),
+                    title: const Text(
+                      "Delete",
+                      style: TextStyle(fontSize: 16),
+                    ),
+                    onTap: () {
+                      deleteAndRefresh();
+                      Navigator.of(context).pop();
+                    },
                   ),
-                  onTap: () {
-                    Navigator.of(context).pop();
-                    Share.share(widget.text!);
-                  },
-                ),
-                const Divider(),
-                ListTile(
-                  leading: const Icon(Icons.delete_outline_outlined),
-                  title: const Text(
-                    "Delete",
-                    style: TextStyle(fontSize: 16),
-                  ),
-                  onTap: () {
-                    deleteAndRefresh();
-                    Navigator.of(context).pop();
-                  },
-                ),
-              ],
+                ],
+              ),
             ),
           );
         });
@@ -106,7 +109,6 @@ class _HistoryTileState extends State<HistoryTile> {
 
     return ListTile(
       contentPadding: const EdgeInsets.fromLTRB(16, 8, 0, 8),
-
       onLongPress: openBottomMenu,
       title: LinkWell(widget.text!,
           linkStyle: TextStyle(
