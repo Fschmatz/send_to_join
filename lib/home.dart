@@ -116,15 +116,13 @@ class _HomeState extends State<Home> {
                           reverse: true,
                           itemCount: history.length,
                           itemBuilder: (context, index) {
-                            return history[index]['text'].toString().isNotEmpty
-                                ? HistoryTile(
+                            return HistoryTile(
                                     key: UniqueKey(),
                                     refreshList: _getHistory,
                                     id: history[index]['id'],
                                     text: history[index]['text'],
                                     date: history[index]['date'],
-                                  )
-                                : const SizedBox.shrink();
+                                  );
                           },
                         ),
                 ),

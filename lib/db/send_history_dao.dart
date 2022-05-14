@@ -36,22 +36,6 @@ class SendHistoryDao {
            $columnDate TEXT
           )
           ''');
-
-    //max items = 15
-    Batch batch = db.batch();
-    for(int i = 1; i <= 15 ; i++) {
-      batch.insert('sendHistory', {'id': i, 'text': '','date':''});
-    }
-    await batch.commit(noResult: true);
-
-    await db.execute('''
-          CREATE TRIGGER deleteOnAdd
-          AFTER INSERT ON $table           
-          BEGIN
-            DELETE FROM $table WHERE $columnId IN (SELECT $columnId FROM $table LIMIT 1);
-          END;
-          
-          ''');
   }
 
   Future<int> insert(Map<String, dynamic> row) async {

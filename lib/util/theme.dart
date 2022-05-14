@@ -9,7 +9,7 @@ ThemeData light = ThemeData(
     background: Color(0xFFFEFCF4),
     primary: Color(0xff76990b),
     onPrimary: Color(0xFFFFFFFF),
-    secondary: Color(0xff76990b),
+    secondary: Color(0xff84ab0c),
   ),
   dialogTheme: const DialogTheme(
     backgroundColor: Color(0xFFFEFCF4),
@@ -28,7 +28,7 @@ ThemeData light = ThemeData(
   ),
   inputDecorationTheme: InputDecorationTheme(
       filled: true,
-      fillColor: const Color(0xFFEEECE4),
+      fillColor: const Color(0xFFE3E4D4),
       focusColor: const Color(0xff76990b),
       contentPadding:
           const EdgeInsets.symmetric(vertical: 15.0, horizontal: 10.0),
@@ -40,12 +40,12 @@ ThemeData light = ThemeData(
       ),
       enabledBorder: OutlineInputBorder(
           borderSide: const BorderSide(
-            color: Color(0xFFEEECE4),
+            color: Color(0xFFE3E4D4),
           ),
           borderRadius: BorderRadius.circular(12.0)),
       border: OutlineInputBorder(
           borderSide: const BorderSide(
-            color: Color(0xFFEEECE4),
+            color: Color(0xFFE3E4D4),
           ),
           borderRadius: BorderRadius.circular(12.0))),
   bottomSheetTheme: const BottomSheetThemeData(
@@ -79,7 +79,7 @@ ThemeData dark = ThemeData(
     background: Color(0xFF202022),
     primary: Color(0xFFadd53a),
     onPrimary: Color(0xFFadd53a),
-    secondary: Color(0xFFadd53a),
+    secondary: Color(0xffb4d74f),
   ),
   appBarTheme: const AppBarTheme(
       color: Color(0xFF202022),
