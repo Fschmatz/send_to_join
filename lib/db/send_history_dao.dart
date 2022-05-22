@@ -57,4 +57,9 @@ class SendHistoryDao {
     return await db.delete(table, where: '$columnId = ?', whereArgs: [id]);
   }
 
+  Future<void> clearDB() async {
+    Database db = await instance.database;
+    await db.rawQuery('DELETE FROM $table');
+  }
+
 }

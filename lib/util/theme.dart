@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 ThemeData light = ThemeData(
-  useMaterial3: true,
+  //useMaterial3: true,
   brightness: Brightness.light,
   primaryColor: const Color(0xFFFEFCF4),
   scaffoldBackgroundColor: const Color(0xFFFEFCF4),
@@ -24,14 +24,18 @@ ThemeData light = ThemeData(
       titleTextStyle: TextStyle(
           fontSize: 22, fontWeight: FontWeight.w400, color: Color(0xFF000000))),
   cardTheme: const CardTheme(
+    elevation: 1,
     color: Color(0xFFEEECE4),
+    shape: RoundedRectangleBorder(
+      borderRadius: BorderRadius.all(Radius.circular(12)),
+    ),
   ),
   inputDecorationTheme: InputDecorationTheme(
       filled: true,
       fillColor: const Color(0xFFE3E4D4),
       focusColor: const Color(0xff76990b),
       contentPadding:
-          const EdgeInsets.symmetric(vertical: 15.0, horizontal: 10.0),
+      const EdgeInsets.symmetric(vertical: 18.0, horizontal: 10.0),
       focusedBorder: OutlineInputBorder(
         borderSide: const BorderSide(
           color: Color(0xff76990b),
@@ -71,7 +75,7 @@ ThemeData light = ThemeData(
 );
 
 ThemeData dark = ThemeData(
-  useMaterial3: true,
+  //useMaterial3: true,
   brightness: Brightness.dark,
   primaryColor: const Color(0xFF202022),
   scaffoldBackgroundColor: const Color(0xFF202022),
@@ -111,7 +115,7 @@ ThemeData dark = ThemeData(
       fillColor: const Color(0xFF2D2D2F),
       focusColor: const Color(0xFFadd53a),
       contentPadding:
-          const EdgeInsets.symmetric(vertical: 15.0, horizontal: 10.0),
+          const EdgeInsets.symmetric(vertical: 18.0, horizontal: 10.0),
       focusedBorder: OutlineInputBorder(
         borderSide: const BorderSide(
           color: Color(0xFFadd53a),

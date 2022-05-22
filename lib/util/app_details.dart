@@ -1,11 +1,11 @@
 class AppDetails{
 
-  static String appVersion = "2.1.1";
+  static String appVersion = "2.1.2";
   static String appName = "Send To Join Fschmatz";
   static String repositoryLink = "https://github.com/Fschmatz/send_to_join";
 
   static String changelogs = '''
-2.1.1
+2.1.2
 - Bottom Sheet on Hold
 - Add LinkWell
 - Bug Fixes

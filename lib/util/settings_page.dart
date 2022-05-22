@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:easy_dynamic_theme/easy_dynamic_theme.dart';
+import 'package:send_to_join/db/send_history_dao.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'app_details.dart';
 import 'dialog_select_theme.dart';
@@ -8,7 +9,9 @@ class SettingsPage extends StatefulWidget {
   @override
   _SettingsPageState createState() => _SettingsPageState();
 
-  const SettingsPage({Key? key}) : super(key: key);
+  Function() refreshHome;
+
+  SettingsPage({Key? key, required this.refreshHome}) : super(key: key);
 }
 
 class _SettingsPageState extends State<SettingsPage> {
@@ -17,6 +20,39 @@ class _SettingsPageState extends State<SettingsPage> {
     launchUrl(
       Uri.parse(AppDetails.repositoryLink),
       mode: LaunchMode.externalApplication,
+    );
+  }
+
+  void _clearList() async {
+    final db = SendHistoryDao.instance;
+    await db.clearDB();
+    widget.refreshHome();
+  }
+
+  showAlertDialogOkDelete(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text(
+            "Confirm",
+          ),
+          content: const Text(
+            "Clear data ?",
+          ),
+          actions: [
+            TextButton(
+              child: const Text(
+                "Yes",
+              ),
+              onPressed: () {
+                _clearList();
+                Navigator.of(context).pop();
+              },
+            )
+          ],
+        );
+      },
     );
   }
 
@@ -76,6 +112,13 @@ class _SettingsPageState extends State<SettingsPage> {
               subtitle: Text(
                 getThemeStringFormatted(),
               ),
+            ),
+            ListTile(
+              leading: const Icon(Icons.delete_outline),
+              title: const Text("Clear List"),
+              onTap: () {
+                showAlertDialogOkDelete(context);
+              },
             ),
             ListTile(
               title: Text("Source Code",

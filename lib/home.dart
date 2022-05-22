@@ -47,7 +47,8 @@ class _HomeState extends State<Home> {
 
   Future<void> sendMessage() async {
     String textToSend = messageText.text;
-    _saveWordToHistory(textToSend);
+    await _saveWordToHistory(textToSend);
+    await _getHistory();
     messageText.text = '';
 
     if (textToSend.isNotEmpty) {
@@ -60,7 +61,6 @@ class _HomeState extends State<Home> {
               ApiKey.deviceID;
 
       final response = await http.get(Uri.parse(urlToSend));
-      _getHistory();
 
       if (response.body.contains('true')) {
         Fluttertoast.showToast(
@@ -100,7 +100,7 @@ class _HomeState extends State<Home> {
                         context,
                         MaterialPageRoute(
                           builder: (BuildContext context) =>
-                              const SettingsPage(),
+                              SettingsPage(refreshHome: _getHistory,),
                         ));
                   }),
             ],
@@ -117,24 +117,23 @@ class _HomeState extends State<Home> {
                           itemCount: history.length,
                           itemBuilder: (context, index) {
                             return HistoryTile(
-                                    key: UniqueKey(),
-                                    refreshList: _getHistory,
-                                    id: history[index]['id'],
-                                    text: history[index]['text'],
-                                    date: history[index]['date'],
-                                  );
+                              key: UniqueKey(),
+                              refreshList: _getHistory,
+                              id: history[index]['id'],
+                              text: history[index]['text'],
+                              date: history[index]['date'],
+                            );
                           },
                         ),
                 ),
               ),
-              Padding(
-                padding: const EdgeInsets.fromLTRB(16, 10, 16, 15),
+              Card(
+                margin: const EdgeInsets.fromLTRB(16, 10, 16, 15),
                 child: TextField(
                   minLines: 1,
                   maxLines: 10,
                   maxLength: 2000,
                   maxLengthEnforcement: MaxLengthEnforcement.enforced,
-                  //textInputAction: TextInputAction.go,
                   controller: messageText,
                   textCapitalization: TextCapitalization.sentences,
                   decoration: InputDecoration(
@@ -146,7 +145,6 @@ class _HomeState extends State<Home> {
                             Icons.send_rounded,
                             color: Theme.of(context).colorScheme.primary,
                           ))),
-                  //onEditingComplete: () => {sendMessage(), loseFocus()},
                 ),
               ),
             ],
