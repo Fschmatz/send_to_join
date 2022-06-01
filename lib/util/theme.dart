@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 
 ThemeData light = ThemeData(
-  //useMaterial3: true,
+  useMaterial3: true,
+  textTheme: const TextTheme(
+    titleMedium: TextStyle(fontWeight: FontWeight.w400),
+  ),
   brightness: Brightness.light,
   primaryColor: const Color(0xFFFEFCF4),
   scaffoldBackgroundColor: const Color(0xFFFEFCF4),
@@ -18,6 +21,7 @@ ThemeData light = ThemeData(
     ),
   ),
   appBarTheme: const AppBarTheme(
+      surfaceTintColor: Color(0xFFFEFCF4),
       color: Color(0xFFFEFCF4),
       elevation: 0,
       iconTheme: IconThemeData(color: Color(0xFF000000)),
@@ -35,7 +39,7 @@ ThemeData light = ThemeData(
       fillColor: const Color(0xFFE3E4D4),
       focusColor: const Color(0xff76990b),
       contentPadding:
-      const EdgeInsets.symmetric(vertical: 18.0, horizontal: 10.0),
+          const EdgeInsets.symmetric(vertical: 18.0, horizontal: 10.0),
       focusedBorder: OutlineInputBorder(
         borderSide: const BorderSide(
           color: Color(0xff76990b),
@@ -75,7 +79,10 @@ ThemeData light = ThemeData(
 );
 
 ThemeData dark = ThemeData(
-  //useMaterial3: true,
+  useMaterial3: true,
+  textTheme: const TextTheme(
+    titleMedium: TextStyle(fontWeight: FontWeight.w400),
+  ),
   brightness: Brightness.dark,
   primaryColor: const Color(0xFF202022),
   scaffoldBackgroundColor: const Color(0xFF202022),
@@ -86,6 +93,7 @@ ThemeData dark = ThemeData(
     secondary: Color(0xffb4d74f),
   ),
   appBarTheme: const AppBarTheme(
+      surfaceTintColor: Color(0xFF202022),
       color: Color(0xFF202022),
       elevation: 0,
       iconTheme: IconThemeData(color: Color(0xFFFFFFFF)),

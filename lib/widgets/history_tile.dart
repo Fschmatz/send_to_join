@@ -108,7 +108,7 @@ class _HistoryTileState extends State<HistoryTile> {
         Theme.of(context).textTheme.headline6!.color!.withOpacity(0.7);
 
     return ListTile(
-      contentPadding: const EdgeInsets.fromLTRB(16, 8, 0, 8),
+      minVerticalPadding: 16,
       onLongPress: openBottomMenu,
       title: LinkWell(widget.text!,
           linkStyle: TextStyle(

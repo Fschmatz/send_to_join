@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:easy_dynamic_theme/easy_dynamic_theme.dart';
 import 'package:send_to_join/db/send_history_dao.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'app_details.dart';
-import 'dialog_select_theme.dart';
+import '../util/app_details.dart';
+import '../util/dialog_select_theme.dart';
 
 class SettingsPage extends StatefulWidget {
   @override

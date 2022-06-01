@@ -1,15 +1,16 @@
 class AppDetails{
 
-  static String appVersion = "2.1.2";
+  static String appVersion = "2.1.3";
   static String appName = "Send To Join Fschmatz";
   static String repositoryLink = "https://github.com/Fschmatz/send_to_join";
 
   static String changelogs = '''
-2.1.2
+2.1.3
 - Bottom Sheet on Hold
 - Add LinkWell
 - Bug Fixes
 - AnimatedSwitcher
+- Flutter 3 Update
 
 2.0.1
 - New UI

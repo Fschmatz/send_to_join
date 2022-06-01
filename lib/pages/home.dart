@@ -5,7 +5,7 @@ import 'package:send_to_join/api_key.dart';
 import 'package:http/http.dart' as http;
 import 'package:send_to_join/db/send_history_controller.dart';
 import 'package:send_to_join/db/send_history_dao.dart';
-import 'package:send_to_join/util/settings_page.dart';
+import 'package:send_to_join/pages/settings_page.dart';
 import 'package:send_to_join/widgets/history_tile.dart';
 
 class Home extends StatefulWidget {
@@ -99,8 +99,9 @@ class _HomeState extends State<Home> {
                     Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (BuildContext context) =>
-                              SettingsPage(refreshHome: _getHistory,),
+                          builder: (BuildContext context) => SettingsPage(
+                            refreshHome: _getHistory,
+                          ),
                         ));
                   }),
             ],
@@ -112,7 +113,9 @@ class _HomeState extends State<Home> {
                   duration: const Duration(milliseconds: 600),
                   child: loadingHistory
                       ? const Center(child: SizedBox.shrink())
-                      : ListView.builder(
+                      : ListView.separated(
+                          separatorBuilder: (BuildContext context, int index) =>
+                              const Divider(height: 0,),
                           reverse: true,
                           itemCount: history.length,
                           itemBuilder: (context, index) {
