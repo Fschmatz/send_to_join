@@ -108,7 +108,7 @@ class _HistoryTileState extends State<HistoryTile> {
         Theme.of(context).textTheme.headline6!.color!.withOpacity(0.7);
 
     return ListTile(
-      minVerticalPadding: 16,
+      minVerticalPadding: 20,
       onLongPress: openBottomMenu,
       title: LinkWell(widget.text!,
           linkStyle: TextStyle(
@@ -126,12 +126,6 @@ class _HistoryTileState extends State<HistoryTile> {
           style: TextStyle(fontSize: 12, color: detailsColor),
         ),
       ),
-      /*trailing: IconButton(
-            onPressed: () => {sendMessage()},
-            icon: Icon(
-              Icons.keyboard_return_outlined,
-              color: detailsColor,
-            ))*/
     );
   }
 }
