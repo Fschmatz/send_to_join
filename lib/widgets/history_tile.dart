@@ -72,7 +72,6 @@ class _HistoryTileState extends State<HistoryTile> {
                       Navigator.of(context).pop();
                     },
                   ),
-                  const Divider(),
                   ListTile(
                     leading: const Icon(Icons.share_outlined),
                     title: const Text(
@@ -83,12 +82,10 @@ class _HistoryTileState extends State<HistoryTile> {
                       Share.share(widget.text!);
                     },
                   ),
-                  const Divider(),
                   ListTile(
                     leading: const Icon(Icons.delete_outline_outlined),
                     title: const Text(
                       "Delete",
-                      style: TextStyle(fontSize: 16),
                     ),
                     onTap: () {
                       deleteAndRefresh();
