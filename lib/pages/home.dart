@@ -141,6 +141,7 @@ class _HomeState extends State<Home> {
                   textCapitalization: TextCapitalization.sentences,
                   decoration: InputDecoration(
                       counterText: "",
+                      hintText: "Message",
                       focusColor: Theme.of(context).colorScheme.primary,
                       suffixIcon: IconButton(
                           onPressed: () => {sendMessage(), loseFocus()},
