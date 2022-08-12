@@ -25,7 +25,7 @@ ThemeData light = ThemeData(
     surfaceTintColor: Color(0xFFEEECE4),
     color: Color(0xFFEEECE4),
     shape: RoundedRectangleBorder(
-      borderRadius: BorderRadius.all(Radius.circular(16.0)),
+      borderRadius: BorderRadius.all(Radius.circular(12.0)),
     ),
   ),
   inputDecorationTheme: InputDecorationTheme(
@@ -36,18 +36,18 @@ ThemeData light = ThemeData(
         borderSide: const BorderSide(
           color: Color(0xff76990b),
         ),
-        borderRadius: BorderRadius.circular(16.0),
+        borderRadius: BorderRadius.circular(12.0),
       ),
       enabledBorder: OutlineInputBorder(
           borderSide: const BorderSide(
             color: Color(0xFFE3E4D4),
           ),
-          borderRadius: BorderRadius.circular(16.0)),
+          borderRadius: BorderRadius.circular(12.0)),
       border: OutlineInputBorder(
           borderSide: const BorderSide(
             color: Color(0xFFE3E4D4),
           ),
-          borderRadius: BorderRadius.circular(16.0))),
+          borderRadius: BorderRadius.circular(12.0))),
   bottomSheetTheme: const BottomSheetThemeData(
     backgroundColor: Color(0xFFFEFCF4),
     shape: RoundedRectangleBorder(
@@ -90,7 +90,7 @@ ThemeData dark = ThemeData(
     surfaceTintColor: Color(0xFF2D2D2F),
     color: Color(0xFF2D2D2F),
     shape: RoundedRectangleBorder(
-      borderRadius: BorderRadius.all(Radius.circular(16.0)),
+      borderRadius: BorderRadius.all(Radius.circular(12.0)),
     ),
   ),
   dialogTheme: const DialogTheme(
@@ -111,18 +111,18 @@ ThemeData dark = ThemeData(
         borderSide: const BorderSide(
           color: Color(0xFFadd53a),
         ),
-        borderRadius: BorderRadius.circular(16.0),
+        borderRadius: BorderRadius.circular(12.0),
       ),
       enabledBorder: OutlineInputBorder(
           borderSide: const BorderSide(
             color: Color(0xFF2D2D2F),
           ),
-          borderRadius: BorderRadius.circular(16.0)),
+          borderRadius: BorderRadius.circular(12.0)),
       border: OutlineInputBorder(
           borderSide: const BorderSide(
             color: Color(0xFF2D2D2F),
           ),
-          borderRadius: BorderRadius.circular(16.0))),
+          borderRadius: BorderRadius.circular(12.0))),
   bottomNavigationBarTheme: const BottomNavigationBarThemeData(
     backgroundColor: Color(0xFF1B1B1D),
   ),

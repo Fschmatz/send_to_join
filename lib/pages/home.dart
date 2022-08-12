@@ -83,76 +83,72 @@ class _HomeState extends State<Home> {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () {
-        loseFocus();
-      },
-      child: Scaffold(
-          appBar: AppBar(
-            title: const Text('Send To Join'),
-            actions: [
-              IconButton(
-                  icon: const Icon(
-                    Icons.settings_outlined,
-                  ),
-                  onPressed: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (BuildContext context) => SettingsPage(
-                            refreshHome: _getHistory,
-                          ),
-                        ));
-                  }),
-            ],
-          ),
-          body: Column(
-            children: [
-              Expanded(
-                child: AnimatedSwitcher(
-                  duration: const Duration(milliseconds: 600),
-                  child: loadingHistory
-                      ? const Center(child: SizedBox.shrink())
-                      : ListView.separated(
-                          separatorBuilder: (BuildContext context, int index) =>
-                              const Divider(height: 0,),
-                          reverse: true,
-                          itemCount: history.length,
-                          itemBuilder: (context, index) {
-                            return HistoryTile(
-                              key: UniqueKey(),
-                              refreshList: _getHistory,
-                              id: history[index]['id'],
-                              text: history[index]['text'],
-                              date: history[index]['date'],
-                            );
-                          },
+    return Scaffold(
+        appBar: AppBar(
+          title: const Text('Send To Join'),
+          actions: [
+            IconButton(
+                icon: const Icon(
+                  Icons.settings_outlined,
+                ),
+                onPressed: () {
+                  loseFocus();
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (BuildContext context) => SettingsPage(
+                          refreshHome: _getHistory,
                         ),
-                ),
+                      ));
+                }),
+          ],
+        ),
+        body: Column(
+          children: [
+            Expanded(
+              child: AnimatedSwitcher(
+                duration: const Duration(milliseconds: 600),
+                child: loadingHistory
+                    ? const Center(child: SizedBox.shrink())
+                    : ListView.separated(
+                        separatorBuilder: (BuildContext context, int index) =>
+                            const Divider(height: 0,),
+                        reverse: true,
+                        itemCount: history.length,
+                        itemBuilder: (context, index) {
+                          return HistoryTile(
+                            key: UniqueKey(),
+                            refreshList: _getHistory,
+                            id: history[index]['id'],
+                            text: history[index]['text'],
+                            date: history[index]['date'],
+                          );
+                        },
+                      ),
               ),
-              Card(
-                margin: const EdgeInsets.fromLTRB(16, 10, 16, 15),
-                child: TextField(
-                  minLines: 1,
-                  maxLines: 10,
-                  maxLength: 2000,
-                  maxLengthEnforcement: MaxLengthEnforcement.enforced,
-                  controller: messageText,
-                  textCapitalization: TextCapitalization.sentences,
-                  decoration: InputDecoration(
-                      counterText: "",
-                      hintText: "Message",
-                      focusColor: Theme.of(context).colorScheme.primary,
-                      suffixIcon: IconButton(
-                          onPressed: () => {sendMessage(), loseFocus()},
-                          icon: Icon(
-                            Icons.send_rounded,
-                            color: Theme.of(context).colorScheme.primary,
-                          ))),
-                ),
+            ),
+            Padding(
+              padding: const EdgeInsets.fromLTRB(16, 10, 16, 15),
+              child: TextField(
+                minLines: 1,
+                maxLines: 10,
+                maxLength: 2000,
+                maxLengthEnforcement: MaxLengthEnforcement.enforced,
+                controller: messageText,
+                textCapitalization: TextCapitalization.sentences,
+                decoration: InputDecoration(
+                    counterText: "",
+                    hintText: "Message",
+                    focusColor: Theme.of(context).colorScheme.primary,
+                    suffixIcon: IconButton(
+                        onPressed: () => {sendMessage(), loseFocus()},
+                        icon: Icon(
+                          Icons.send_rounded,
+                          color: Theme.of(context).colorScheme.primary,
+                        ))),
               ),
-            ],
-          )),
-    );
+            ),
+          ],
+        ));
   }
 }
