@@ -22,8 +22,9 @@ class _HomeState extends State<Home> {
 
   @override
   void initState() {
-    _getHistory(false);
     super.initState();
+
+    _getHistory(false);
   }
 
   Future<void> _getHistory([bool refresh = true]) async {
@@ -53,12 +54,7 @@ class _HomeState extends State<Home> {
 
     if (textToSend.isNotEmpty) {
       String urlToSend =
-          "https://joinjoaomgcd.appspot.com/_ah/api/messaging/v1/sendPush?apikey=" +
-              ApiKey.key +
-              "&text=" +
-              textToSend +
-              "&deviceId=" +
-              ApiKey.deviceID;
+          "https://joinjoaomgcd.appspot.com/_ah/api/messaging/v1/sendPush?apikey=${ApiKey.key}&text=$textToSend&deviceId=${ApiKey.deviceID}";
 
       final response = await http.get(Uri.parse(urlToSend));
 
@@ -83,72 +79,82 @@ class _HomeState extends State<Home> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        appBar: AppBar(
-          title: const Text('Send To Join'),
-          actions: [
-            IconButton(
-                icon: const Icon(
-                  Icons.settings_outlined,
-                ),
-                onPressed: () {
-                  loseFocus();
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (BuildContext context) => SettingsPage(
-                          refreshHome: _getHistory,
+    final theme = Theme.of(context);
+
+    return SafeArea(
+      child: Scaffold(
+          appBar: AppBar(
+            surfaceTintColor: theme.colorScheme.background,
+            title: const Text('Send To Join'),
+            actions: [
+              IconButton(
+                  icon: const Icon(
+                    Icons.settings_outlined,
+                  ),
+                  onPressed: () {
+                    loseFocus();
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (BuildContext context) => SettingsPage(
+                            refreshHome: _getHistory,
+                          ),
+                        ));
+                  }),
+            ],
+          ),
+          body: Column(
+            children: [
+              Expanded(
+                child: AnimatedSwitcher(
+                  duration: const Duration(milliseconds: 600),
+                  child: loadingHistory
+                      ? const Center(child: SizedBox.shrink())
+                      : ListView.separated(
+                          separatorBuilder: (BuildContext context, int index) => const Divider(
+                            height: 0,
+                          ),
+                          reverse: true,
+                          itemCount: history.length,
+                          itemBuilder: (context, index) {
+                            return HistoryTile(
+                              key: UniqueKey(),
+                              refreshList: _getHistory,
+                              id: history[index]['id'],
+                              text: history[index]['text'],
+                              date: history[index]['date'],
+                            );
+                          },
                         ),
-                      ));
-                }),
-          ],
-        ),
-        body: Column(
-          children: [
-            Expanded(
-              child: AnimatedSwitcher(
-                duration: const Duration(milliseconds: 600),
-                child: loadingHistory
-                    ? const Center(child: SizedBox.shrink())
-                    : ListView.separated(
-                        separatorBuilder: (BuildContext context, int index) =>
-                            const Divider(height: 0,),
-                        reverse: true,
-                        itemCount: history.length,
-                        itemBuilder: (context, index) {
-                          return HistoryTile(
-                            key: UniqueKey(),
-                            refreshList: _getHistory,
-                            id: history[index]['id'],
-                            text: history[index]['text'],
-                            date: history[index]['date'],
-                          );
-                        },
-                      ),
+                ),
               ),
-            ),
-            Padding(
-              padding: const EdgeInsets.fromLTRB(16, 10, 16, 15),
-              child: TextField(
-                minLines: 1,
-                maxLines: 10,
-                maxLength: 2000,
-                maxLengthEnforcement: MaxLengthEnforcement.enforced,
-                controller: messageText,
-                textCapitalization: TextCapitalization.sentences,
-                decoration: InputDecoration(
-                    counterText: "",
-                    hintText: "Message",
-                    focusColor: Theme.of(context).colorScheme.primary,
-                    suffixIcon: IconButton(
-                        onPressed: () => {sendMessage(), loseFocus()},
-                        icon: Icon(
-                          Icons.send_rounded,
-                          color: Theme.of(context).colorScheme.primary,
-                        ))),
+              Padding(
+                padding: const EdgeInsets.fromLTRB(16, 10, 16, 15),
+                child: TextField(
+                  minLines: 1,
+                  maxLines: 10,
+                  maxLength: 2000,
+                  maxLengthEnforcement: MaxLengthEnforcement.enforced,
+                  controller: messageText,
+                  textCapitalization: TextCapitalization.sentences,
+                  decoration: InputDecoration(
+                      counterText: "",
+                      hintText: "Message",
+                      filled: true,
+                      contentPadding: const EdgeInsets.all(16),
+                      fillColor: Theme.of(context).colorScheme.onInverseSurface,
+                      border: const OutlineInputBorder(borderSide: BorderSide.none, borderRadius: BorderRadius.all(Radius.circular(50))),
+                      focusColor: Theme.of(context).colorScheme.primary,
+                      suffixIcon: IconButton(
+                          onPressed: () => {sendMessage(), loseFocus()},
+                          icon: Icon(
+                            Icons.send_rounded,
+                            color: Theme.of(context).colorScheme.primary,
+                          ))),
+                ),
               ),
-            ),
-          ],
-        ));
+            ],
+          )),
+    );
   }
 }

@@ -86,7 +86,7 @@ class _SettingsPageState extends State<SettingsPage> {
               ),
               child: ListTile(
                 title: Text(
-                  AppDetails.appName + " " + AppDetails.appVersion,
+                  "${AppDetails.appName} ${AppDetails.appVersion}",
                   textAlign: TextAlign.center,
                   style: const TextStyle(fontSize: 17.5, color: Colors.black),
                 ),
@@ -135,6 +135,7 @@ class _SettingsPageState extends State<SettingsPage> {
               title: const Text("View Source Code on GitHub",
                   style: TextStyle(
                       decoration: TextDecoration.underline,
+                      decorationColor: Colors.blue,
                       color: Colors.blue)),
             ),
             ListTile(
