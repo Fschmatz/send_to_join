@@ -3,20 +3,20 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:jiffy/jiffy.dart';
 import 'package:http/http.dart' as http;
 import 'package:linkwell/linkwell.dart';
-import 'package:send_to_join/db/send_history_controller.dart';
+import 'package:send_to_join/service/send_history_service.dart';
 import 'package:share_plus/share_plus.dart';
 import '../api_key.dart';
 
 class HistoryTile extends StatefulWidget {
-  Function() refreshList;
-  int? id;
-  String? text;
-  String? date;
+  final Function() refreshList;
+  final int? id;
+  final String? text;
+  final String? date;
+
+  HistoryTile({super.key, this.text, this.date, this.id, required this.refreshList});
 
   @override
-  _HistoryTileState createState() => _HistoryTileState();
-
-  HistoryTile({Key? key, this.text, this.date, this.id, required this.refreshList}) : super(key: key);
+  State<HistoryTile> createState() => _HistoryTileState();
 }
 
 class _HistoryTileState extends State<HistoryTile> {
@@ -94,23 +94,23 @@ class _HistoryTileState extends State<HistoryTile> {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+
     return ListTile(
       minVerticalPadding: 20,
       onLongPress: openBottomMenu,
       title: LinkWell(widget.text!,
           linkStyle: TextStyle(
-            color: Theme.of(context).colorScheme.primary,
+            color: theme.colorScheme.primary,
             fontSize: 16,
             decoration: TextDecoration.underline,
           ),
-          style: TextStyle(fontSize: 16, color: Theme.of(context).textTheme.titleMedium!.color)),
+          style: const TextStyle(fontSize: 16)),
       subtitle: Padding(
         padding: const EdgeInsets.only(top: 10),
         child: Text(
-          Jiffy.parse(widget.date!).yMMMMEEEEd,
-          style: const TextStyle(
-            fontSize: 12,
-          ),
+          Jiffy.parse(widget.date!).format(pattern: "EEEE, dd/MM/yyyy"),
+          style: TextStyle(fontSize: 12, color: theme.hintColor),
         ),
       ),
     );

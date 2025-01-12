@@ -1,13 +1,14 @@
 class AppDetails{
 
-  static String appVersion = "2.2.0";
+  static String appVersion = "2.2.1";
   static String appName = "Send To Join Fschmatz";
   static String repositoryLink = "https://github.com/Fschmatz/send_to_join";
 
   static String changelogs = '''
-2.2.0
+2.2.1
 - Monet
 - Flutter 3.19
+- Bug Fixes
 
 2.1.5
 - Bottom Sheet on Hold

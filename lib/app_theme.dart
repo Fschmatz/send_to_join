@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'app.dart';
 
 class AppTheme extends StatelessWidget {
-  const AppTheme({Key? key}) : super(key: key);
+  const AppTheme({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -24,6 +24,5 @@ class AppTheme extends StatelessWidget {
               themeMode: EasyDynamicTheme.of(context).themeMode,
               home: const App());
         });
-
   }
 }

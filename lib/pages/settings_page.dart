@@ -5,16 +5,16 @@ import 'package:url_launcher/url_launcher.dart';
 import '../util/app_details.dart';
 import '../util/dialog_select_theme.dart';
 
-class SettingsPage extends StatefulWidget {
+class Settings extends StatefulWidget {
+  final Function() refreshHome;
+
+  const Settings({super.key, required this.refreshHome});
+
   @override
-  _SettingsPageState createState() => _SettingsPageState();
-
-  Function() refreshHome;
-
-  SettingsPage({Key? key, required this.refreshHome}) : super(key: key);
+  State<Settings> createState() => _SettingsState();
 }
 
-class _SettingsPageState extends State<SettingsPage> {
+class _SettingsState extends State<Settings> {
 
   _launchGithub() {
     launchUrl(
@@ -147,9 +147,9 @@ class _SettingsPageState extends State<SettingsPage> {
                   )),
             ),
             ListTile(
-              leading: const Icon(
+             /* leading: const Icon(
                 Icons.article_outlined,
-              ),
+              ),*/
               title: Text(
                 AppDetails.changelogs,
                 style: const TextStyle(fontSize: 16),

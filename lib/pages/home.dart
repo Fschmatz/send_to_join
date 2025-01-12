@@ -3,16 +3,16 @@ import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:send_to_join/api_key.dart';
 import 'package:http/http.dart' as http;
-import 'package:send_to_join/db/send_history_controller.dart';
+import 'package:send_to_join/service/send_history_service.dart';
 import 'package:send_to_join/db/send_history_dao.dart';
 import 'package:send_to_join/pages/settings_page.dart';
 import 'package:send_to_join/widgets/history_tile.dart';
 
 class Home extends StatefulWidget {
-  const Home({Key? key}) : super(key: key);
+  const Home({super.key});
 
   @override
-  _HomeState createState() => _HomeState();
+  State<Home> createState() => _HomeState();
 }
 
 class _HomeState extends State<Home> {
@@ -48,11 +48,11 @@ class _HomeState extends State<Home> {
 
   Future<void> sendMessage() async {
     String textToSend = messageText.text;
-    await _saveWordToHistory(textToSend);
-    await _getHistory();
     messageText.text = '';
 
     if (textToSend.isNotEmpty) {
+      await _saveWordToHistory(textToSend);
+      await _getHistory();
       String urlToSend =
           "https://joinjoaomgcd.appspot.com/_ah/api/messaging/v1/sendPush?apikey=${ApiKey.key}&text=$textToSend&deviceId=${ApiKey.deviceID}";
 
@@ -85,7 +85,7 @@ class _HomeState extends State<Home> {
       child: Scaffold(
           appBar: AppBar(
             surfaceTintColor: theme.colorScheme.background,
-            title: const Text('Send To Join'),
+            title: const Text('Send to Join'),
             actions: [
               IconButton(
                   icon: const Icon(
@@ -96,7 +96,7 @@ class _HomeState extends State<Home> {
                     Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (BuildContext context) => SettingsPage(
+                          builder: (BuildContext context) => Settings(
                             refreshHome: _getHistory,
                           ),
                         ));
